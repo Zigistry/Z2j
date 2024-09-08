@@ -1,0 +1,16 @@
+{
+  "name": "z2j",
+  "version": "v0.0.1",
+  "description": "A zon to json convertor.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "zon",
+    "json",
+    "convert"
+  ],
+  "author": "Rohan Vashisht",
+  "license": "AGPL-3.0-only"
+}
