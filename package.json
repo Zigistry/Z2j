@@ -1,5 +1,5 @@
 {
-  "name": "zilite",
+  "name": "z2j",
   "version": "0.0.4",
   "description": "A Zon to json convertor.",
   "author": {
@@ -27,11 +27,11 @@
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/zigistry/zilite.git"
+      "url": "https://github.com/zigistry/z2j.git"
   },
   "bugs": {
-      "url": "https://github.com/zigistry/zilite/issues"
+      "url": "https://github.com/zigistry/z2j/issues"
   },
-  "homepage": "https://github.com/zigistry/zilite#readme",
+  "homepage": "https://github.com/zigistry/z2j#readme",
   "type": "module"
 }
