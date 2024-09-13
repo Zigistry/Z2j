@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "ES6",                            // Target ECMAScript version
+      "module": "ES6",                            // Use ES6 modules
+      "declaration": true,                        // Generate declaration files (.d.ts)
+      "outDir": "./dist",                         // Output folder for compiled JavaScript
+      "strict": true,                             // Enable strict type-checking options
+      "esModuleInterop": true,                    // Compatibility with CommonJS modules
+      "forceConsistentCasingInFileNames": true,   // Enforce consistent file naming
+      "moduleResolution": "node",                 // Resolve module imports
+      "isolatedModules": true,                    // Ensure each file can be safely transpiled
+      "resolveJsonModule": true                   // Enable importing .json files
+    },
+    "include": ["src"],                           // Include all files from the 'src' folder
+    "exclude": ["node_modules", "dist"]           // Exclude the 'node_modules' and 'dist' folders
+  }
+  

@@ -1,9 +1,4 @@
-/**
- * 
- * @param {string} input 
- * @returns {string}
- */
-function removeComments(input) {
+function removeComments(input: string): string {
     // Match strings and comments separately
     return input.replace(/("(?:\\.|[^"\\])*")|\/\/.*|\/\*[\s\S]*?\*\//g, (match, stringMatch) => {
         // If it's a string, return it unchanged
@@ -15,12 +10,7 @@ function removeComments(input) {
     });
 }
 
-/**
- * 
- * @param {string} input 
- * @returns {string}
- */
-export function zon2json(input) {
+export function zon2json(input: string): string {
     input = removeComments(input);
 
     // input = input.replace(/\/\/.*$/gm, ''); // Remove single-line comments

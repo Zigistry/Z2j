@@ -1,16 +1,37 @@
 {
-  "name": "z2j",
-  "version": "v0.0.1",
-  "description": "A zon to json convertor.",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "test"
+  "name": "zilite",
+  "version": "0.0.4",
+  "description": "A Zon to json convertor.",
+  "author": {
+      "name": "Rohan Vashisht",
+      "email": "rohanvashisht@zigistry.dev"
   },
   "keywords": [
-    "zon",
-    "json",
-    "convert"
+      "json",
+      "zon",
+      "convertor"
   ],
-  "author": "Rohan Vashisht",
-  "license": "AGPL-3.0-only"
+  "license": "AGPL-3.0-only",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+      "dist"
+  ],
+  "scripts": {
+      "build": "tsc",
+      "prepare": "npm run build",
+      "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {
+      "typescript": "^5.5.4"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/zigistry/zilite.git"
+  },
+  "bugs": {
+      "url": "https://github.com/zigistry/zilite/issues"
+  },
+  "homepage": "https://github.com/zigistry/zilite#readme",
+  "type": "module"
 }
