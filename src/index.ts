@@ -13,8 +13,8 @@ function removeComments(input: string): string {
 export function zon2json(input: string): string {
     input = removeComments(input);
 
-    // input = input.replace(/\/\/.*$/gm, ''); // Remove single-line comments
-    input = input.replace(/\.{/, '{');
+    // Replace .{ for objects with lookahead to ensure it's not for arrays
+    input = input.replace(/\.{(?=\s*\.)/g, '{'); // Only replace if followed by another dot (object fields)
 
     // Replace .field = "value" with "field": "value"
     input = input.replace(/\.([a-zA-Z0-9_-]+)\s*=\s*/g, '"$1": ');
@@ -22,18 +22,17 @@ export function zon2json(input: string): string {
     // Handle the @"raylib-zig" case
     input = input.replace(/\.\@"([\w\-\.]+)"\s*=\s*\./g, '"$1": ');
 
-    // Replace arrays in the format .{ "value1", "value2", ... } with [ "value1", "value2", ... ]
-    input = input.replace(/\.{\s*("[^"]*"\s*,?\s*)+\s*}/g, match => {
-        return match
-            .replace(/\.{/, '[')
-            .replace(/}\s*$/, ']')
-            .replace(/,\s*]/, ']'); // Remove the trailing comma before closing ]
+    // Replace Zon arrays in the format .{ 1, 2, 3 } with [1, 2, 3]
+    input = input.replace(/\.{\s*([^\{\}]*)\s*}/g, (_, arrayContent:string) => {
+        const formattedArray = arrayContent.split(',').map(item => item.trim()).join(', ');
+        return `[${formattedArray}]`;
     });
 
-    // Remove extra dots before opening braces
+    // Handle edge case where there are nested objects after arrays
     input = input.replace(/\.\s*\{/g, '{');
 
     // Remove commas after the last element in objects or arrays (JSON doesn't allow trailing commas)
     input = input.replace(/,(\s*[}\]])/g, '$1');
+
     return input;
 }
