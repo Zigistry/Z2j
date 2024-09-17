@@ -7,30 +7,36 @@ function removeComments(input: string): string {
   });
 }
 
-export function zon2json(input: string): string {
+export default function zon2json(input: string): string {
   input = removeComments(input);
 
-  // Handle objects: Replace .{ with {
+  // Replace .{ with {
   input = input.replace(/\.{/g, '{');
 
   // Replace .field = "value" or .field: "value" with "field": "value"
   input = input.replace(/\.([a-zA-Z0-9_-]+)\s*(=|:)\s*/g, '"$1": ');
 
-  // Remove the .@ prefix from fields
+  // Remove the .@ prefix and handle it correctly
   input = input.replace(/\.@([a-zA-Z0-9_-]+)\s*(=|:)\s*/g, '"$1": ');
 
-  // Handle arrays: Zon uses {.field = "value", ...} for objects
-  // Replace Zon arrays in the format { value1, value2, ... } with [ value1, value2, ... ]
+  // Remove unnecessary dots before braces
+  input = input.replace(/\.\s*\{/g, '{');
+
+  // Handle .@"key" as "key"
+  input = input.replace(/\.@"([a-zA-Z0-9_-]+)"\s*(=|:)\s*/g, '"$1": ');
+
+  // Convert Zon-style arrays to JSON arrays
   input = input.replace(/\{([^:]+?)\}/g, (_, arrayContent: string) => {
     if (/:/.test(arrayContent)) {
-      return `{${arrayContent}}`; // It's an object
+      return `{${arrayContent}}`; // It's an object, leave it as is
     } else {
+      // Handle Zon arrays: format content as JSON array
       const formattedArray = arrayContent.split(',').map(item => item.trim()).join(', ');
-      return `[${formattedArray}]`; // It's an array
+      return `[${formattedArray}]`; // Convert to JSON array
     }
   });
 
-  // Remove commas after the last element in objects or arrays (JSON doesn't allow trailing commas)
+  // Remove trailing commas in objects or arrays
   input = input.replace(/,(\s*[}\]])/g, '$1');
 
   return input;
